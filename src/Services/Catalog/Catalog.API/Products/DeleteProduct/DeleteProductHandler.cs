@@ -1,0 +1,32 @@
+﻿
+namespace Catalog.API.Products.DeleteProduct;
+
+public record DeleteProductCommand(Guid Id) : ICommand<DeleteProductResult>;
+
+public record DeleteProductResult(bool IsSuccess);
+
+public class DeleteProductCommandValidator : AbstractValidator<DeleteProductCommand>
+{
+    public DeleteProductCommandValidator()
+    {
+        RuleFor(x => x.Id).NotEmpty().WithMessage("Product Id is required.");
+    }
+}
+
+internal class DeleteProductCommandHandler(IDocumentSession session) : ICommandHandler<DeleteProductCommand, DeleteProductResult>
+{
+    public async Task<DeleteProductResult> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
+    {
+        var product = await session.LoadAsync<Product>(request.Id, cancellationToken);
+
+        if (product is null)
+        {
+            throw new ProductNotFoundException(request.Id);
+        }
+
+        session.Delete<Product>(product);
+        await session.SaveChangesAsync(cancellationToken);
+
+        return new DeleteProductResult(true);
+    }
+}

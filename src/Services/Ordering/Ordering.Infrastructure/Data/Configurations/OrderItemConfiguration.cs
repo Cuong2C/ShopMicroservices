@@ -13,7 +13,7 @@ public class OrderItemConfiguration : IEntityTypeConfiguration<OrderItem>
             id => id.Value,
             dbId => OrderItemId.Of(dbId));
 
-        builder.HasOne<ProductId>().WithMany().HasForeignKey(x => x.ProductId);
+        builder.HasOne<Product>().WithMany().HasForeignKey(x => x.ProductId);
         builder.Property(x => x.Quantity).IsRequired();
         builder.Property(x => x.Price).IsRequired();
     }

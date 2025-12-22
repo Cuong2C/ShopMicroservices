@@ -14,4 +14,5 @@ public record ProductId
         }
         return new ProductId(value);
     }
+
 }

@@ -3,7 +3,7 @@
 public class Order : Aggregate<OrderId>
 {
     private readonly List<OrderItem> _orderItem = new();
-    public IReadOnlyList<OrderItem> OrderItems => _orderItem.AsReadOnly();
+    public IList<OrderItem> OrderItems => _orderItem;
 
     public CustomerId CustomerId { get; private set; } = default!;
     public OrderName OrderName { get; private set; } = default!;

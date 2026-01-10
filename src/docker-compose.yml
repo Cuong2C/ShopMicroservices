@@ -1,12 +1,18 @@
 services:
   catalogdb:
     image: postgres
+
   basketdb:
     image: postgres
+
   distributedcache:
     image: redis
+
   orderdb:
     image: mcr.microsoft.com/mssql/server
+
+  messagebroker:
+    image: rabbitmq:3-management
 
   catalog.api:
     image: ${DOCKER_REGISTRY-}catalogapi

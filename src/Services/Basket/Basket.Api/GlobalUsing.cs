@@ -11,4 +11,4 @@ global using Mapster;
 global using Marten;
 global using MediatR;
 global using Microsoft.AspNetCore.Diagnostics;
-
+global using Basket.Api.Dtos;
